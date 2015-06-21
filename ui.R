@@ -3,7 +3,7 @@ library(lattice)
 library(ggplot2)
 shinyUI(pageWithSidebar(
     
-    headerPanel("Linear Regression Model"),
+    headerPanel("Shiny Car Application"),
     
     sidebarPanel(
         h5("Before starting see the documentation tab"),

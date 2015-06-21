@@ -1,87 +1,62 @@
-Shiny Crime Application
+Shiny Car Application
 ===
-author: Coursera: Developing Data Products
-date: Sun Jun 21 22:15:53 2015
+author: wang
+date: Sun Jun 21 23:40:29 2015
 transition: rotate
 transition-speed: fast
 type: prompt
 font-family:"Times New Roman"                
 
-Features of the Shiny Crime Application
+Features of the Shiny Car Application
 ===
 transition: concave
     
                 
 ### Selection Boxes     
-- Two selection input boxes are available.            
-- Selection box allows choice of 1 of 50 United States.       
-- A second box allows for selection of a second state.   
+- One selection input boxes are available.            
+- Selection box allows choice of Displacement,
+    Horse Power,Weight.
+- A second box allows for selection of nummber. 
+- 3 checkbox allows control of the plot display:
+    Name, line , formula
 
-***
 
+===
+
+Shiny Car Application Outputs
 ### Output Plots            
-- Shows crime rate data from 1960-2012.      
-- Shows violent crime rates for each 100,000 individuals.
-- Shows property crime rate for each 100,000 individuals.       
-- Shows total crime rate for each 1000,000 individuals.   
+- Shows plot of linear regression of the miles per gallon and Displacement
+- Shows plot of linear regression of the miles per gallon and Horse Power
+- Shows plot of linear regression of the miles per gallon and Weight
+- Shows Names, line , formula in each plot.  
+      
 
-Shiny Crime Application Outputs
-========================================================
-transition: rotate
-### Output Plots (continued)     
-- Each ggplot shows 53 years of crime data for selected state, on a year by year basis.                 
-- The ggplots also show loess curve fit showing the crime trends over the 53 years.
 
-### Tab Outputs                                                        
-- The shiny crime application has 6 tabs:
-   - **Plot**, **State 1 Total**, **State 2 Total**, **Property Crime**, **Violent Crime**,  **Total Crime**.            
-   
-### Example of least **Total Crime** state.   
-
-```r
-library(reshape2)
-library(dplyr)
-crime.by.state <- read.csv("crime.by.state.csv")
-crime2012 <- crime.by.state %.%
-  filter(Year==2012) %.%
-  dcast(Year + State ~ Crime)
-typeTotal <- crime2012 %.%
-  select(State, Year, Total) %.%
-  arrange(Total) %.%
-  mutate(Order = 1:50) 
-head(typeTotal,1)
-```
-Getting and Cleaning Data 
+      
+===
+### Example of relations every pair variables.   
+![plot of chunk unnamed-chunk-1](Presentation_for_Shiny-figure/unnamed-chunk-1-1.png) 
+Inside the hood
 ===   
-### Getting Data      
-- Data was from FBI's uniform crime reports.    
-- Data was archived at: http://www.bjs.gov/ucrdata/Search/Crime/State/StateCrime.cfm     
-
-### Cleaning Data       
-- Two files containing property or violent crime data were downloaded.            
-- Files were combined and processed into a crime.by.state.csv file.   
-
-### The structure of the crime.by.state data set.
+### The regression call 
 
 ```r
-crime.by.state <- read.csv("crime.by.state.csv")
-str(crime.by.state, width = 32, strict.width = "cut")
-head(crime.by.state, 1)
+fit <- lm(mtcars$mpg ~ mtcars$wt)
+plot(mpg ~ wt,data = mtcars, ylab="Miles per Gallon",xlab=mtcars$wt)
+abline(fit,col = "red",lwd=2)
 ```
 
+![plot of chunk unnamed-chunk-2](Presentation_for_Shiny-figure/unnamed-chunk-2-1.png) 
 
-
-Why use the Shiny Crime Application?
+Why use the Shiny Car Application ?
 ===============================================
-### When vacationing
+### When buying a car
 
-- If you are traveling across the United States you can avoid high crime rate states...
-  - Or you can be prepared by packing heat.
+- If you are buying a new car or a used car...
+  - you can get a idea of how gas-costly it will be.
   
-### When moving
-- You may select a state like Maine, which has the lowest violent crime rate...
-  - Or you can bring the heat and join the fray...
-    - See you on visiting days.
+### When using a car
+- You may check regualy the car's gas effiency to its ideal state.
 
 
 
